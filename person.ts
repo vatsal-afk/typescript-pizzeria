@@ -27,8 +27,9 @@ function createUserId(role: "management" | "staff" | "customer"): number {
 }
 
 function createUser(userObj : Person) {
-    Users.push(userObj);
     const userId : number = createUserId(userObj.role);
+    userObj.id = userId;
+    Users.push(userObj);
     return userId;
 }
 
@@ -44,6 +45,7 @@ function updateUser(userObj : Person, updatedUserObj : Person) {
     return Users;
 }
 
+//run tests
 
 createUser({ username: "alice", role: "management" });
 createUser({ username: "bob", role: "staff" });
@@ -51,10 +53,12 @@ createUser({ username: "carol", role: "customer" });
 
 console.log(Users);
 
-updateUser({ id: 1000, username: "alice", role: "management" }, { username: "alison", role: "customer" });
+updateUser({ id: 1000, username: "alice", role: "management" }, { id: 1000, username: "alison", role: "customer" });
 
 console.log(Users);
 
 deleteUser({ id: 2000, username: "bob", role: "staff" });
 
 console.log(Users);
+
+console.log(getUser(1000));
